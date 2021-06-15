@@ -39,7 +39,7 @@ void removeSpace(string &s){
 // e.g.:: "1,2,3,4,5" then vector contains integer  v:={1,2,3,4,5};
 vector<int> parseComma(string &s){
     string s1=s;
-    if(s1[0]=='['){
+    if(s1[0]=='[' || s1[0]=='(' || s1[0]=='{' ){
         s="";
         for(int i=1;i<s1.length()-1;i++) s.push_back(s1[i]);
     }
