@@ -13,7 +13,7 @@ public:
 class Trie{
     Node* root=new Node();
     void insert_string(string &s){
-        int n=s.length();
+        const int n=s.length();
         Node* cur=root;
         for(int i=0;i<n;i++){
             int id=s[i]-'a';
@@ -25,7 +25,7 @@ class Trie{
         (cur->eow)++;
     }
     bool search(string &s){
-        int n=s.length();
+        const int n=s.length();
         Node* cur=root;
         for(int i=0;i<n;i++){
             int id=s[i]-'a';
@@ -33,6 +33,17 @@ class Trie{
             cur=cur->child[id];
         }
         if(cur!=NULL && cur->eow!=0)    return true;
+        return false;
+    }
+    bool startsWith(string &s) {
+        const int n=s.length();
+        Node* cur=root;
+        for(int i=0;i<n;i++){
+            int id=s[i]-'a';
+            if(!cur->child[id]) return false;
+            cur=cur->child[id];
+        }
+        if(cur!=NULL)    return true;
         return false;
     }
     Node* deleteword(Node* ptr,string &s,int id){
@@ -70,6 +81,9 @@ public:
     }
     bool is_present(string &s){
         return search(s);
+    }
+    bool is_prefix(string &s){
+        return startsWith(s);
     }
     void remove(string &s){
         if(!is_present(s)){
