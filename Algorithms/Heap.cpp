@@ -1,7 +1,7 @@
 /*
  ___________________________________
 |                                   |
-|			Binary Heap             |
+|	    Binary Heap             |
 |___________________________________|
 
 -> Binary heap is a complete binary tree
