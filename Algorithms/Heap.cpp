@@ -14,22 +14,22 @@
 ---> 		Min Heap
 -> Complete binnary Tree
 -> Every node has value smaller than its descendants
-				10
+			    10
 			   /   \
 			  20    15
 			 /  \   / \
-		   30  40  18
+		        30  40 18
 
 		arr[]={10,20,15,30,40,18};
 
 					
-						2
+					    2
 					   / \
 					  4   8
 					/  \  / \
-				   6   5  9  10
-				  / \
-				100 200
+				       6   5  9  10
+				      / \
+				    100 200
 
 		arr[]={2,4,8,6,5,9,10,100,200};
 
