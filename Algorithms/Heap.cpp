@@ -37,6 +37,7 @@
 
 */
 
+// Everything is 1-based index
 #include<bits/stdc++.h>
 using namespace std;
 
