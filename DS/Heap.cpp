@@ -29,6 +29,7 @@
 		arr[]={2,4,8,6,5,9,10,100,200};
 */
 
+// Everything is 1-based index
 #include<bits/stdc++.h>
 using namespace std;
 
