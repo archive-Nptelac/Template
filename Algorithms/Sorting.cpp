@@ -64,3 +64,33 @@ void Msort(vector<int>&v,int low,int high)
 }
 
 
+/*************************** Heap Sort *****************************/
+
+void max_heapify(vll &v,int n,int id){
+    int maxi=id;
+    int l=2*id+1;
+    int r=2*id+2;
+    if(l<n && v[l]>v[maxi]) maxi=l;     // find index of maximum element amont current node, left and right child
+    if(r<n && v[r]>v[maxi]) maxi=r;
+    if(maxi!=id){                       // If maximum index is not the current index then do swap and heapify for max-index
+        swap(v[id],v[maxi]);
+        max_heapify(v,n,maxi);
+    }
+}
+//  build max-heap
+void build_heap(vll &v){
+    const int n=v.size();
+    for(int i=n/2-1;i>=0;i--){
+        max_heapify(v,n,i);
+    }
+}
+void Hsort(vll &v){
+    build_heap(v);                      // 1st build the array a proper max heap
+    const int n=v.size();
+    for(int i=n-1;i>0;i--){
+        swap(v[0],v[i]);                // every time swap the max value with last value
+        max_heapify(v,i,0);             // Again apply heapify for that index in the root node till i-th index
+    }
+}
+
+/*************************************************************/
