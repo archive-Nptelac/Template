@@ -107,18 +107,19 @@ private:
         postorder_(ptr->right);
         cout << (ptr->val) << " ";
     }
-    void show_(Node* ptr, int lvl) {
-        int id;
-        if(ptr==NULL)   return;
-        show_(ptr->right,lvl+1);
-        cout << " ";
-        if(ptr==root){
-            cout << "ROOT-> ";
-        }
-        for(int i=0;i<lvl && ptr!=root;i++) {
-            cout << " ";
-            cout << ptr->val;
-            show_(ptr->left,lvl+1);
+    void show_(Node* ptr) {
+        if(!ptr)    return;
+        queue<Node*>qe;
+        qe.push(ptr);
+        while(!qe.empty()) {
+            int s=qe.size();
+            for(int i=0;i<s;i++) {
+                Node* tmp=qe.front();
+                qe.pop();
+                cout << tmp->val << " ";
+                if(tmp->left)   qe.push(tmp->left);
+                if(tmp->right)  qe.push(tmp->right);
+            }
         }
     }
 public:
@@ -141,7 +142,8 @@ public:
         cout << endl;
     }
     void show() {
-        show_(root,1);
+        cout << "LevelOrder: ";
+        show_(root);
         cout << endl;
     }
 };
@@ -164,11 +166,11 @@ int32_t main()
         cout << "4.PreOrder traversal" << endl;
         cout << "5.PostOrder traversal" << endl;
         cout << "6.Exit" << endl;
-        cout << "Enter your Choice: ";
+        printf("Enter your choices: ");
         cin >> c;
         switch (c) {
             case 1:
-                cout << "Enter value to be inserted: ";
+                printf("Enter value to be inserted: ");
                 cin >> x;
                 avl.insert_node(x);
                 break;
@@ -181,19 +183,13 @@ int32_t main()
                 avl.show();
                 break;
             case 3:
-                cout << "Inorder Traversal:" << endl;
                 avl.inorder();
-                cout << endl;
                 break;
             case 4:
-                cout << "Preorder Traversal:" << endl;
                 avl.preorder();
-                cout << endl;
                 break;
             case 5:
-                cout << "Postorder Traversal:" << endl;
                 avl.postorder();
-                cout << endl;
                 break;
             case 6:
                 exit(1);
@@ -201,6 +197,7 @@ int32_t main()
             default:
                 cout << "Wrong Choice" << endl;
         }
+        cout << endl;
     }
     return 0;
 }
