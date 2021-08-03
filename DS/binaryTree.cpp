@@ -177,6 +177,34 @@ public:
         return res;
     }
 };
+/******************************************************************************************************************/
+// Construct Tree from Pre-Order and Post-Order Traversal
+Problem Link: https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/
+
+// first find index in post-order traversal for each node in pre-order traversal;
+unordered_map<int,int>index;
+void storeIndex(vector<int>&v){
+    int id=0;
+    for(int x:v){
+        index[x]=id;id++;
+    }
+}
+TreeNode* construct(vector<int>&pre,vector<int>&post,int l1,int r1,int l2,int r2){
+        TreeNode* tmp=new TreeNode(pre[l1]);
+        if(l1==r1)  return tmp;
+        int nxt=pre[l1+1];
+        int postId=index[nxt];
+        int rem=postId-l2+1;
+        tmp->left=construct(pre,post,l1+1,l1+rem,l2,l2+rem-1);
+        if(postId+1==r2)    return tmp;
+        tmp->right=construct(pre,post,l1+rem+1,r1,postId+1,r2-1);
+        return tmp;
+}
+TreeNode* constructFromPrePost(vector<int>& preOrder, vector<int>& postOrder) {
+        storeIndex(postOrder);
+        const int n=preOrder.size();
+        return construct(preOrder,postOrder,0,n-1,0,n-1);
+}
 
 int32_t main(){
 
