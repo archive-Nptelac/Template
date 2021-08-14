@@ -1,9 +1,9 @@
 class LFUCache {
     const int cap;
     int minFreq;
-    unordered_map<int, pair<int, int>> keyValFreq;
-    unordered_map<int, list<int>> freqKey;
-    unordered_map<int, list<int>::iterator> keyIter;
+    unordered_map<int, pair<int, int>> keyValFreq;                  // ma[key]={value,freq};
+    unordered_map<int, list<int>> freqKey;                          // for a frequency f, stores all node as a doubly linked list
+    unordered_map<int, list<int>::iterator> keyIter;                // stores address of a key
 
 public:
     LFUCache(int capacity) : cap(capacity) {}
