@@ -56,3 +56,18 @@ struct NextPrev{
 		return;
 	}
 };
+
+
+//  Short code for next Greater Element ( calculate from right to left )
+
+vector<int> getNextGreater(vector<int>&a){
+	const int n=a.size();
+	stack<int>st;
+	vector<int>nextGreater(n,n);
+	for(int i=n-1;i>=0;i--){
+            while(!st.empty() && temp[st.top()]<=temp[i])   st.pop();
+            nextGreater[i]=(st.empty()?n:st.top());
+            st.push(i);
+        }
+	return nextGreater;
+}
