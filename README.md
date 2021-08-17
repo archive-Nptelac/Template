@@ -871,7 +871,7 @@ vector<int> rabin_karp(string const& s, string const& text) {       // find occu
 }
 ```
 
-#Trie
+# Trie
 ```C++
 const int K=26;
 class Node{
