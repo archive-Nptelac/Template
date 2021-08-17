@@ -1,6 +1,6 @@
 # My Template for CP
 
-- [ALGORITHMS](https://github.com/KBS05#ALGORITHMS)
+- [ALGORITHMS](#ALGORITHMS)
 - [DATA STRUCTURES](https://github.com/KBS05#DATASTRUCTURES)
 - [DESIGN](https://github.com/KBS05#DESIGN)
 - [CORE](https://github.com/KBS05#CORE)
