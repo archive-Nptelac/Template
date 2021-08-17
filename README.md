@@ -5,15 +5,25 @@
   - [Binary_Decimal](#Binary_Decimal)
   - [Disjoint Set Union](#Disjoint_set_union)
   - [DFS](#DFS)
-  - [Heap](#Heap)
+  - [Heap](#Visual)
+    - [Visual](#Visual)
+    - [Min Heap](#MinHeap)
+    - [Max Heap](#MaxHeap)
   - [MO's_Algo](#Mo's_Algo)
   - [NextPrev_GreaterSmaller](#NextPrev_GreaterSmaller)
   - [Nth Fibonacci](#NthFibonacci)
   - [Number Theory](#NumberTheory)
-  - [Segment Tree](#SegmentTree)
-  - [Sorting](#Sorting)
-  - [Sparse Table](#Sparsetable)
-  - [String Algo (KMP, Pi Table)](#StringAlgo)
+  - [Segment Tree](#Segment1)
+    - [Point Update and Range Query](#Segment1)
+    - [Range Update and Point Query](#Segment2)
+  - [Sorting](#QuickSort)
+    - [Quick Sort](#QuickSort)
+    - [Merge Sort](#MergeSort)
+    - [Heap Sort](#HeapSort)
+  - [Sparse Table](#SparseTable)
+  - [String Algo](#RabinKarp)
+    - [Rabin Karp](#RabinKarp)
+    - [PI Table](#PiTable)
   - [Trie](#Trie)
 - [DATA STRUCTURES](#DATASTRUCTURES)
 - [DESIGN](#DESIGN)
@@ -111,26 +121,7 @@ int countset(int n)
 }
 ```
 
-# DFS
-```C++
-bool vis[MAX];
-int par[MAX];
-vector<vector<int> >adj(MAX);
-void dfs(int x)
-{
-    vis[x]=true;
-    cout << x << " ";
-    for(int j=0;j<adj[x].size();j++){
-        int p=adj[x][j];
-        if(!vis[p]){
-            par[p]=x;
-            dfs(p);
-        }
-    }
-}
-```
-
-# Disjoint set union
+# Disjoint_set_union
 ``` C++
 class DSU{
     vector<int>par;
@@ -159,7 +150,26 @@ public:
 };
 ```
 
-# Heap
+# DFS
+```C++
+bool vis[MAX];
+int par[MAX];
+vector<vector<int> >adj(MAX);
+void dfs(int x)
+{
+    vis[x]=true;
+    cout << x << " ";
+    for(int j=0;j<adj[x].size();j++){
+        int p=adj[x][j];
+        if(!vis[p]){
+            par[p]=x;
+            dfs(p);
+        }
+    }
+}
+```
+
+# Visual
 ```C++
 /*
  ___________________________________
@@ -192,6 +202,10 @@ public:
 		arr[]={2,4,8,6,5,9,10,100,200};
 */
 
+```
+
+# MinHeap
+```C++
 // Everything is 1-based index
 #include<bits/stdc++.h>
 using namespace std;
@@ -270,7 +284,10 @@ class minHeap{
 			cout << "}" << endl;
 		}
 };
+```
 
+# MaxHeap
+```C++
 class maxHeap{
 	private:
 		int index;
@@ -364,8 +381,6 @@ int main(){
 
 # Mo's_Algo
 ```C++
-/******************* MO's Algorithm *********************/
-
 const int root=555;
 int distinct;                                                   // Total distinct value in the current range [L,R];
 int freq[MAX];                                                  // Frequency of each element
@@ -536,14 +551,9 @@ int32_t main(){
 }
 ```
 
-# SegmentTree
+# Segment1
 
 ```C++
-
-/**************** Segment tree ************************/
-
-/*********** Point update and range query **************/
-
 class segment{
     int size;
     vector<int>T;
@@ -614,12 +624,10 @@ class segment{
         }
 };                                                      // Intialize variable as segment tree(v);
 
+```
 
-
-/************ range update and point query ************/
-
-
-
+# Segment2
+```C++
 class segment2{
     int size;
     vector<int>T;
@@ -680,6 +688,284 @@ class segment2{
         void addval(int l,int r,int val){       // add val to A[l,r] (including);
             update(l,r,val,0,0,size-1);
         }
+};
+```
+
+# QuickSort
+```C++
+int Partition(vector<int>&v,int low,int high){
+    int i,j,pivot,temp;
+    pivot=v[high];
+    i=low-1;
+    for(j=low;j<=high-1;j++){
+        if(v[j]<=pivot){
+            i++;
+            temp=v[j];
+            v[j]=v[i];
+            v[i]=temp;
+        }
+    }
+    temp=v[i+1];
+    v[i+1]=v[high];
+    v[high]=temp;
+    return i+1;
+}
+void Qsort(vector<int>&v,int low,int high){
+    int p;
+    if(low<high){
+        p=Partition(v,low,high);
+        Qsort(v,low,p-1);
+        Qsort(v,p+1,high);
+    }
+}
+```
+
+# MergeSort
+```C++
+void Merge(vector<int>&v,int low,int mid,int high){
+    int i,j,k,n1,n2;
+    n1=mid-low+1;
+    n2=high-mid;
+    int L[n1],R[n2];
+    for(i=0;i<n1;i++) L[i]=v[low+i];
+    for(i=0;i<n2;i++) R[i]=v[mid+1+i];
+    i=0;j=0;k=low;
+    while(i<n1&&j<n2){
+        if(L[i]<=R[j]){
+            v[k]=L[i]; i++;
+        }
+        else{
+            v[k]=R[j]; j++;
+        }
+        k++;
+    }
+    while(i<n1){
+        v[k]=L[i];i++;k++;
+    }
+    while(j<n2){
+        v[k]=R[j];k++;j++;
+    }
+}
+void Msort(vector<int>&v,int low,int high)
+{
+    int mid;
+    if(low<high){
+        mid=low+(high-low)/2;
+        Msort(v,low,mid);
+        Msort(v,mid+1,high);
+        Merge(v,low,mid,high);
+    }
+}
+```
+
+# HeapSort
+```C++
+void max_heapify(vector<int>&v,int n,int id){
+    int maxi=id;
+    int l=2*id+1;
+    int r=2*id+2;
+    if(l<n && v[l]>v[maxi]) maxi=l;     // find index of maximum element amont current node, left and right child
+    if(r<n && v[r]>v[maxi]) maxi=r;
+    if(maxi!=id){                       // If maximum index is not the current index then do swap and heapify for max-index
+        swap(v[id],v[maxi]);
+        max_heapify(v,n,maxi);
+    }
+}
+//  build max-heap
+void build_heap(vector<int>&v){
+    const int n=v.size();
+    for(int i=n/2-1;i>=0;i--){
+        max_heapify(v,n,i);
+    }
+}
+void Hsort(vector<int>&v){
+    build_heap(v);                  // 1st build the array a proper max heap
+    const int n=v.size();
+    for(int i=n-1;i>0;i--){
+        swap(v[0],v[i]);            // every time swap the max value with last value
+        max_heapify(v,i,0);         // Again apply heapify for that index in the root node till i-th index
+    }
+}
+```
+
+# SparseTable
+```C++
+int st[MAX][25];
+int change_st(int a,int b){                         // Change is accordingly
+    return min(a,b);
+}
+void build(vector<int>&v){                          // vector v is 0-based indexing
+    int n=v.size();
+    for(int i=0;i<n;i++)    st[i][0]=v[i];
+    for(int j=1;(1ll<<j)<=n;j++){
+        for(int i=0;i+(1ll<<j)-1<n;i++){
+            st[i][j]=change_st(st[i][j-1],st[i+(1ll<<(j-1))][j-1]);
+        }
+    }
+}
+int query(int l,int r){                             // get result in the range [L,R]
+    int total=r-l+1;
+    int k=log2(total);
+    int ans=st[l][k];
+    int rem=total-(1ll<<k);
+    ans=change_st(ans,st[l+rem][k]);
+    return ans;
+}
+```
+
+# RabinKarp
+```C++
+vector<int> rabin_karp(string const& s, string const& text) {       // find occurance of s in the given text
+    const int p = 31;                                               // Time Complexity:- O(|S|+|text|);
+    const int m = 1e9 + 9;
+    int S = s.size(), T = text.size();
+
+    vector<long long> p_pow(max(S, T)); 
+    p_pow[0] = 1; 
+    for (int i = 1; i < (int)p_pow.size(); i++) 
+        p_pow[i] = (p_pow[i-1] * p) % m;
+
+    vector<long long> h(T + 1, 0); 
+    for (int i = 0; i < T; i++)
+        h[i+1] = (h[i] + (text[i] - 'a' + 1) * p_pow[i]) % m; 
+    long long h_s = 0; 
+    for (int i = 0; i < S; i++) 
+        h_s = (h_s + (s[i] - 'a' + 1) * p_pow[i]) % m; 
+
+    vector<int> occurences;
+    for (int i = 0; i + S - 1 < T; i++) { 
+        long long cur_h = (h[i+S] + m - h[i]) % m; 
+        if (cur_h == h_s * p_pow[i] % m)
+            occurences.push_back(i);
+    }
+    return occurences;
+}
+```
+
+# PiTable
+```C++
+vector<int> rabin_karp(string const& s, string const& text) {       // find occurance of s in the given text
+    const int p = 31;                                               // Time Complexity:- O(|S|+|text|);
+    const int m = 1e9 + 9;
+    int S = s.size(), T = text.size();
+
+    vector<long long> p_pow(max(S, T)); 
+    p_pow[0] = 1; 
+    for (int i = 1; i < (int)p_pow.size(); i++) 
+        p_pow[i] = (p_pow[i-1] * p) % m;
+
+    vector<long long> h(T + 1, 0); 
+    for (int i = 0; i < T; i++)
+        h[i+1] = (h[i] + (text[i] - 'a' + 1) * p_pow[i]) % m; 
+    long long h_s = 0; 
+    for (int i = 0; i < S; i++) 
+        h_s = (h_s + (s[i] - 'a' + 1) * p_pow[i]) % m; 
+
+    vector<int> occurences;
+    for (int i = 0; i + S - 1 < T; i++) { 
+        long long cur_h = (h[i+S] + m - h[i]) % m; 
+        if (cur_h == h_s * p_pow[i] % m)
+            occurences.push_back(i);
+    }
+    return occurences;
+}
+```
+
+#Trie
+```C++
+const int K=26;
+class Node{
+public:
+    int eow=0;
+    Node* child[K];
+    Node(){
+        eow=0;
+        for(int i=0;i<K;i++){
+            child[i]=NULL;
+        }
+    }
+};
+class Trie{
+    Node* root=new Node();
+    void insert_string(string &s){
+        const int n=s.length();
+        Node* cur=root;
+        for(int i=0;i<n;i++){
+            int id=s[i]-'a';
+            if(!cur->child[id]){
+                cur->child[id]=new Node();
+            }
+            cur=cur->child[id];
+        }
+        (cur->eow)++;
+    }
+    bool search(string &s){
+        const int n=s.length();
+        Node* cur=root;
+        for(int i=0;i<n;i++){
+            int id=s[i]-'a';
+            if(!cur->child[id]) return false;
+            cur=cur->child[id];
+        }
+        if(cur!=NULL && cur->eow!=0)    return true;
+        return false;
+    }
+    bool startsWith(string &s) {
+        const int n=s.length();
+        Node* cur=root;
+        for(int i=0;i<n;i++){
+            int id=s[i]-'a';
+            if(!cur->child[id]) return false;
+            cur=cur->child[id];
+        }
+        if(cur!=NULL)    return true;
+        return false;
+    }
+    Node* deleteword(Node* ptr,string &s,int id){
+        if(ptr==NULL)   return NULL;
+        int n=s.length();
+        if(id==n){
+            if(ptr->eow){
+                ptr->eow=false;
+            }
+            bool ok=true;
+            for(int i=0;i<26;i++){
+                if(ptr->child[i])   ok=false;
+            }
+            if(ok){
+                delete(ptr);
+                ptr=NULL;
+            }
+            return ptr;
+        }
+        int sid=s[id]-'a';
+        ptr->child[sid]=deleteword(ptr->child[sid],s,id+1);
+        bool ok1=true;
+        for(int i=0;i<26;i++){
+            if(ptr->child[i])  ok1=false;
+        }
+        if(ok1 && (ptr->eow == false)){
+            delete(ptr);
+            ptr=NULL;
+        }
+        return ptr;
+    }
+public:
+    void insert(string &s){
+        insert_string(s);
+    }
+    bool is_present(string &s){
+        return search(s);
+    }
+    bool is_prefix(string &s){
+        return startsWith(s);
+    }
+    void remove(string &s){
+        if(!is_present(s)){
+            return;
+        }
+        root=deleteword(root,s,0);
+    }
 };
 ```
 
