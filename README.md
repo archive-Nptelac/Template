@@ -117,7 +117,7 @@ int rightmostsetbit(int n)
     return a;
 }
 
-/********************Count set bit******************/
+/*******************Count set bit******************/
 int countset(int n)
 {
     int a=0;
