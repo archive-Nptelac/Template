@@ -759,7 +759,7 @@ vector<vector<int> > power(vector<vector<int> >&v1,int n){
 }
 ```
 
-#inverseMod
+# inverseMod
 ```C++
 int power(int a,int b,int m)
 {
