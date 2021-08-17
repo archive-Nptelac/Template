@@ -9,7 +9,7 @@
     - [Visual](#Visual)
     - [Min Heap](#MinHeap)
     - [Max Heap](#MaxHeap)
-  - [MO's_Algo](#Mo's_Algo)
+  - [MO's_Algo](#Mos_Algo)
   - [NextPrev_GreaterSmaller](#NextPrev_GreaterSmaller)
   - [Nth Fibonacci](#NthFibonacci)
   - [Number Theory](#NumberTheory)
