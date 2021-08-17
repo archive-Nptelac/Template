@@ -455,12 +455,12 @@ struct NextPrev{
 	void calcNextGreater(){
 		nextgreater = vector<int>(n, n);
 		stack<int> st;
-        for(int i=n-1;i>=0;i--){
-            while(!st.empty() && a[st.top()]<=a[i])   st.pop();
-            nextgreater[i]=(st.empty()?n:st.top());
-            st.push(i);
-        }
-        return;
+		for(int i=n-1;i>=0;i--){
+		    while(!st.empty() && a[st.top()]<=a[i])   st.pop();
+		    nextgreater[i]=(st.empty()?n:st.top());
+		    st.push(i);
+		}
+		return;
 	}
 	void calcNextSmaller(){
 		nextsmaller = vector<int>(n, n);
