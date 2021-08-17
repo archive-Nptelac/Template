@@ -1,13 +1,13 @@
 # My Template for CP
 
 - [ALGORITHMS](#ALGORITHMS)
-- [DATA STRUCTURES](https://github.com/KBS05#DATASTRUCTURES)
-- [DESIGN](https://github.com/KBS05#DESIGN)
-- [CORE](https://github.com/KBS05#CORE)
+- [DATA STRUCTURES](#DATASTRUCTURES)
+- [DESIGN](#DESIGN)
+- [CORE](#CORE)
 
 # ALGORITHMS
 
-- [DSU](https://github.com/KBS05#DSU)
+- [DSU](#DSU)
 
 # DSU
 ``` C++
