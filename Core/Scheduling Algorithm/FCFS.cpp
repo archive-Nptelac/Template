@@ -61,3 +61,13 @@ int main(){
     
     return 0;
 }
+/*UJJWAL KESHRI */
+/*
+    AT -> Arrival Time
+    BT -> Burst Time
+    ST -> Start Time            = max(previous completion time, current arrival time)
+    CT -> Completion Time       = ST + BT
+    TAT -> Turn Around Time     = CT - AT
+    WT -> Waiting Time          = TAT - BT
+    RT -> Response Time         = ST - AT
+*/
