@@ -20,8 +20,6 @@ int main(){
         p.id=pid;p.AT=at;p.BT=bt;
         v.push_back(p);
     }
-    int time_quantom;
-    cin >> time_quantom;
     
     // Sort according to their arrival time;
     sort(v.begin(),v.end(),[](Process p1,Process p2){
