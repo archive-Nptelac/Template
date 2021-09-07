@@ -206,6 +206,70 @@ TreeNode* constructFromPrePost(vector<int>& preOrder, vector<int>& postOrder) {
         return construct(preOrder,postOrder,0,n-1,0,n-1);
 }
 
+/******************************************************************************************************************/
+// Construct Tree from Pre-Order and In-Order Traversal
+Problem Link: https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+
+class Solution {
+    unordered_map<int,int>idIn;
+    int pre;
+public:
+    TreeNode* fun(int l,int r,vector<int>& preorder, vector<int>& inorder){
+        if(l>r){
+            return NULL;
+        }
+        if(l==r){
+            TreeNode *root = new TreeNode(preorder[pre++]);
+            return root;
+        }
+        int x = preorder[pre++];
+        TreeNode *root = new TreeNode(x);
+        root->left = fun(l,idIn[x]-1,preorder,inorder);
+        root->right = fun(idIn[x]+1,r,preorder,inorder);
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        idIn.clear();
+        for(int i=0;i<inorder.size();i++){
+            idIn[inorder[i]]=i;
+        }
+        pre=0;
+        return fun(0,inorder.size()-1,preorder,inorder);
+    }
+};
+
+/******************************************************************************************************************/
+// Construct Tree from Post-Order and In-Order Traversal
+Problem Link: https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+
+class Solution {
+    unordered_map<int,int>inId;
+    int post;
+public:
+    TreeNode* fun(int l,int r,vector<int>& inorder, vector<int>& postorder){
+        if(l>r){
+            return NULL;
+        }
+        if(l==r){
+            TreeNode *root = new TreeNode(postorder[post--]);
+            return root;
+        }
+        int x = postorder[post--];
+        TreeNode *root = new TreeNode(x);
+        root->right = fun(inId[x]+1,r,inorder,postorder);
+        root->left = fun(l,inId[x]-1,inorder,postorder);
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        for(int i=0;i<inorder.size();i++){
+            inId[inorder[i]]=i;
+        }
+        post=inorder.size()-1;
+        return fun(0,inorder.size()-1,inorder,postorder);
+    }
+};
+
+/******************************************************************************************************************/
 int32_t main(){
 
     binaryTree bt;
