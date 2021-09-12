@@ -1,3 +1,29 @@
+// normal LCA ();
+int par[1005];
+int level[1005];
+void preprocessLca(vector<int> adj[],int n){
+    bool vis[n];
+    memset(vis,0,sizeof(vis));
+    memset(level,0,sizeof(level));
+    memset(par,-1,sizeof(par));
+    queue<int>qe;
+    qe.push(1); // 0 as root node
+    level[1] = 0;
+    vis[1] = true;
+    while(!qe.empty()){
+        int x = qe.front();
+        qe.pop();
+        for(int y:adj[x]){
+            if(vis[y])  continue;
+            level[y] = level[x] + 1;
+            qe.push(y);
+            vis[y] = true;
+            par[y] = x;
+        }
+    }
+    return;
+}
+
 int getLca(int a,int b){
     if(level[a]>level[b]){
         swap(a,b);
@@ -7,7 +33,9 @@ int getLca(int a,int b){
         b = par[b];
         d--;
     }
-    if(a == b)  return a;
+    if(a == b){
+        return a;
+    }
     while(par[a] != par[b]){
         a = par[a];
         b = par[b];
@@ -16,6 +44,9 @@ int getLca(int a,int b){
     // Time Complexity: O(n)
     // Space Complexity: O(n)
 }
+
+// call preprocessLca(adj,n) from main  {  vector<int>adj[n] ,  int n };
+
 // using binary lifting + sparse table
 
 void init(){
