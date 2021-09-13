@@ -60,7 +60,19 @@ void init(){
         }
     }
 }
-int getLca(int a,int b){
+
+int getKthAncestor(int x, int k) {           // return Kth Ancestors of node X in the tree
+    int p = x;
+    while(k>0){
+        int i = log2(k);
+        p = LCA[p][i];
+        if(p == -1) return -1;
+        k -= (1<<i);
+    }
+    return p;
+}
+
+int getLca(int a,int b){        // return LCA of node a and b
     if(level[a]>level[b]){
         swap(a,b);
     }
