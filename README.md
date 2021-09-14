@@ -2,7 +2,7 @@
 
 - [ALGORITHMS](#BIT)
   - [BIT](#BIT)
-  - [Binary_Decimal](#Binary_Decimal)
+  - [Bit_Manipulation](#BitManipulation)
   - [Disjoint Set Union](#Disjoint_set_union)
   - [DFS](#DFS)
   - [Heap](#Visual)
@@ -76,7 +76,7 @@ public:
 };
 ```
 
-# Binary_Decimal
+# BitManipulation
 ```C++
 string binary(int num){
     string s="";
