@@ -1,6 +1,6 @@
 # My Template for CP
 
-- [ALGORITHMS](#ALGORITHMS)
+- [ALGORITHMS](#BIT)
   - [BIT](#BIT)
   - [Binary_Decimal](#Binary_Decimal)
   - [Disjoint Set Union](#Disjoint_set_union)
@@ -78,55 +78,92 @@ public:
 
 # Binary_Decimal
 ```C++
-string binary(int n)
-{
+string binary(int num){
     string s="";
-    if(n==0)    s="0";
+    if(num == 0)    s="0";
     int a;
-    while(n){
-        a=n%2;n/=2;
-        s.pb(a+'0');
+    while(num){
+        a = num%2; num/=2;
+        s.push_back(a+'0');
     }
-    int m=s.length();m=32-m;
-    for(int i=0;i<m;i++)    s.pb('0');
+    int m = 32-s.length();
+    for(int i=0;i<m;i++)    s.push_back('0');
     reverse(s.begin(),s.end());
     return s;
 }
-
-int decim(string s)
-{
-    int ans=0,a=1,n=s.length(),b,c;
-    for(int i=n-1;i>=0;i--){
-        b=s[i]-'0';
-        c=a*b;ans+=c;a*=2;
+int decimal(string s){
+    int num = 0;
+    for(char ch:s){
+        num<<=1;
+        num|=(ch-'0');
+    }
+    return num;
+}
+int numberOfSetBit(int num){
+    int cnt = 0;
+    while(num>0){
+        cnt++;
+        num&=(num-1);
+    }
+    return cnt;
+}
+bool isPowerOfTwo(int num){
+    if(num == 0)    return false;
+    return (num&(num-1) == 0);
+}
+int rightMostSetBit(int num){
+    if(num&1)   return 0;
+    num = (num^(num&(num-1)));
+    int pos = 0;
+    while(num > 0){
+        num>>=1;
+        pos++;
+    }
+    return pos-1;
+}
+int getBitwiseAnd(int l,int r){
+    if(l > r)   swap(l,r);
+    if(l == r)  return l;
+    int diff = r-l;
+    int ans = 0;
+    for(int i=0;i<32;i++){
+        int a = (1ll<<i);
+        int block1 = l/a;
+        int block2 = r/a;
+        if((diff>a) || (block1 != block2) || (block1%2==0)) continue;
+        ans|=a;
     }
     return ans;
 }
-
-/*****************Right most set bit****************/
-
-int rightmostsetbit(int n)
-{
-    if(n&1) return 0;
-    n=(n^(n&(n-1)));
-    int a=-1;
-    while(n){
-        n>>=1;
-        a++;
+int getBitwiseXor(int l,int r){
+    if(l > r)   swap(l,r);
+    if(l == r)  return 0;
+    int xl,xr;
+    xr = ((r%4==0)?r:((r%4==1)?1:((r%4==2)?r+1:0)));
+    if(l == 0){
+        return xr;
     }
-    return a;
+    l--;
+    xl = ((l%4==0)?l:((l%4==1)?1:((l%4==2)?l+1:0)));
+    return (xl^xr);
 }
-
-/*******************Count set bit******************/
-int countset(int n)
-{
-    int a=0;
-    while(n){
-        a++;
-        n=n&(n-1);
-    }
-    return a;
-}
+// some O(1) cost operation
+/*
+    calculate 2^n  -->   (1ll<<n);
+    set ith bit of a number  -->    num|=(1ll<<i);
+    flip ith bit of a number -->    num^=(1ll<<i);
+    find ith bit of a number -->    b = num&(1ll<<i);
+    unset ith bit of a number-->    n&=(~(1ll<<i));
+    clear LSB set bit of a number -->   n&(n-1);
+    find LSB set bit of a number  -->   n^(n&(n-1)),  n&(-n);
+    check a number is power of 2 -->    n&(n-1)==0,  check for n=0 seperately !!!
+*/
+// other relations
+/*
+    a+b = (a|b) + (a&b);
+    a+b = (a^b) + 2*(a&b);
+    a|b = (a^b) + (a&b);
+*/
 ```
 
 # Disjoint_set_union
