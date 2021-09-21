@@ -81,31 +81,51 @@ private:
         }
     }
     // Iterative Traversal
-    void inorder_iterative(vector<int>&res,Node* cur){
-        if(!root)  return;
-        stack<Node*>st;
-        while(st.empty()==false || cur!=NULL){
-            while(cur!=NULL){
-                st.push(cur);
-                cur=cur->left;
+    vector<int> inorder_iterative(TreeNode* root) {
+        vector<int>ans;
+        if(root == NULL)    return ans;
+        
+        stack<TreeNode*>st;
+        TreeNode *curr = root;
+        
+        while(true){
+            if(curr != NULL){
+                st.push(curr);
+                curr = curr->left;
             }
-            cur=st.top();st.pop();
-            res.push_back(cur->data);
-            cur=cur->right;
+            else{
+                if(st.empty()){
+                    break;
+                }
+                curr = st.top();
+                st.pop();
+                ans.push_back(curr->val);
+                curr = curr->right;
+            }
         }
+        
+        return ans;
     }
-    void preorder_iterative(vector<int>&res,Node* cur){
-        if(!cur)    return;
-        stack<Node*>st;
-        while(st.empty()==false || cur!=NULL){
-            while(cur!=NULL){
-                st.push(cur);
-                res.push_back(cur->data);
-                cur=cur->left;
-            }
-            cur=st.top();st.pop();
-            cur=cur->right;
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int>ans;
+        if(!root){
+            return ans;
         }
+        
+        stack<TreeNode*>st;
+        st.push(root);
+        
+        while(!st.empty()){
+            TreeNode *curr = st.top();
+            st.pop();
+            
+            ans.push_back(curr->val);
+            // first push right node into the stack then left node, as we have to access first left one then right (so left should be on the top)
+            if(curr->right) st.push(curr->right);
+            if(curr->left)  st.push(curr->left);
+        }
+        
+        return ans;
     }
     void postorder_iterative(vector<int>&res,Node* cur){
         // using 2 stack
@@ -139,7 +159,7 @@ private:
             cur=st.top();
             st.pop();
             // If poped node has a right child and is not processed yet, then first process it then current node
-            if((cur->right!=NULL) && (st.top()==cur->right)){
+            if((curr->right!=NULL) && (!st.empty()) && (st.top()==curr->right)){
                 st.pop();
                 st.push(cur);
                 cur=cur->right;
