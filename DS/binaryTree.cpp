@@ -106,7 +106,7 @@ private:
         
         return ans;
     }
-    vector<int> preorderTraversal(TreeNode* root) {
+    vector<int> preorder_iterative(TreeNode* root) {
         vector<int>ans;
         if(!root){
             return ans;
