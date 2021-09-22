@@ -1,4 +1,4 @@
-# Tree
+## Tree
 
 - [Binary Tree](#TraversalRecursive)
   - [Traversal Recursive](#TraversalRecursive)
@@ -29,7 +29,7 @@
 
 
 ## TraversalRecursive
-```
+```C++
 	void inorder_traverse(Node* cur){
 	    if(!cur)    return;
 	    if(cur->left)   inorder_traverse(cur->left);
@@ -68,7 +68,7 @@
 
 
 ## TraversalIterative
-```
+```C++
 	vector<int> inorder_iterative(TreeNode* root) {
         vector<int>ans;
         if(root == NULL)    return ans;
@@ -163,7 +163,7 @@
 
 
 ## TraversalAll
-```
+```C++
 	void TraverseAll(TreeNode *root){
 		if(root == NULL) return;
 
@@ -211,7 +211,7 @@
 
 
 ## MaxDepth
-```
+```C++
 	int maxDepth(TreeNode *root){
 		if(root==NULL)	return 0;
 		if(root->left == NULL && root->right==NULL)	return 1;
@@ -222,7 +222,7 @@
 
 
 ## BalancedBinaryTree
-```
+```C++
 	// At each node difference of left height and right height should not be more that 1;
 	// so my function will return -1 if it is not balanced,
 	int height(TreeNode* root){
@@ -245,7 +245,7 @@
 
 
 ## Diameter
-```
+```C++
 	// as the diameter is just the sum of left height and right height at each node;
 	// so just traverse over each node and find its left and right height and maximize the answer;
 	int diameter(TreeNode *root,int &ans){
@@ -266,7 +266,7 @@
 
 
 ## MaxPathSum
-```
+```C++
     int dfs(TreeNode *root, int &ans){
         if(root==NULL)  return 0;
         if(root->left==NULL && root->right==NULL){
@@ -291,7 +291,7 @@
 
 
 ## BoundaryTraversal
-```
+```C++
     void leftTraverse(Node *root, vector<int>&v){
         if(root==NULL)  return;
         if(root->left==NULL && root->right==NULL)   return;
@@ -340,7 +340,7 @@
 
 
 ## TopView
-```
+```C++
     vector<int> topView(Node *root)
     {
         vector<int>res;
@@ -372,7 +372,7 @@
 
 
 ## BottomView
-```
+```C++
     vector <int> bottomView(Node *root) {
         vector<int>res;
         if(root==NULL)  return res;
@@ -400,7 +400,7 @@
 
 
 ## RightView
-```
+```C++
     void traverse(Node *root,vector<int>&res,int &req_level,int cur_level) {
         if(root==NULL)  return;
         if(req_level == cur_level){
@@ -424,7 +424,7 @@
 
 
 ## LeftView
-```
+```C++
     void traverse(Node *root, vector<int>&res, int cur_level, int &req_level){
         if(root == NULL)  return;
         if(req_level == cur_level){
@@ -447,7 +447,7 @@
 
 
 ## PathSourceDestination
-```
+```C++
     bool dfs(TreeNode *root, int B, vector<int>&res) {
         if(root==NULL)  return false;
         res.push_back(root->val);
@@ -471,7 +471,7 @@
 
 
 ## LCA
-```
+```C++
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if(root==NULL)  return NULL;
         if(root==p || root==q){
@@ -495,7 +495,7 @@
 
 
 ## Width
-```
+```C++
     int widthOfBinaryTree(TreeNode* root) {
         if(root == NULL)    return 0;
         int ans = 0;
@@ -529,7 +529,7 @@
 
 
 ## MakeChildrenSum
-```
+```C++
     void reorder(TreeNode *root){
         if(root == NULL)    return;
         int child = 0;
@@ -561,7 +561,7 @@
 
 
 ## InPre
-```
+```C++
     unordered_map<int,int>idIn;
     int pre;
     TreeNode* fun(int l,int r,vector<int>& preorder, vector<int>& inorder) {
@@ -591,7 +591,7 @@
 
 
 ## InPost
-```
+```C++
     unordered_map<int,int>inId;
     int post;
     TreeNode* fun(int l,int r,vector<int>& inorder, vector<int>& postorder){
@@ -621,7 +621,7 @@
 
 
 ## PrePost
-```
+```C++
     eg::  pre[] = {1,2,3},  post[] = {3,2,1};
         1       1
        /       /
@@ -658,7 +658,7 @@
 
 
 ## InMorris
-```
+```C++
     // In morris traversal the space complexity is O(1), and time complexity is O(n);
     vector<int> getInorder(TreeNode *root){
         vector<int>inorder;
@@ -691,7 +691,7 @@
 
 
 ## PreMorris
-```
+```C++
     // In morris traversal the space complexity is O(1), and time complexity is O(n);
     vector<int> getPnorder(TreeNode *root){
         vector<int>preorder;
@@ -723,7 +723,7 @@
 ```
 
 
-# BinarySearchTree
-```
+## BinarySearchTree
+```C++
 will be added ...
 ```
