@@ -38,6 +38,7 @@
     - [Rabin Karp](#RabinKarp)
     - [PI Table](#PiTable)
   - [Trie](#Trie)
+  - [Suffix Array](#Suffix_Array)
 
 # BIT
 ``` C++
@@ -1250,4 +1251,97 @@ public:
         root=deleteword(root,s,0);
     }
 };
+```
+
+# Suffix_Array
+``` C++
+void countSort(vector<int> &p,vector<int> &c)
+{
+    int n = p.size();
+    vector<int> cnt(n);
+    for(auto x:c)   cnt[x]++;
+    vector<int> p_new(n),pos(n);
+ 
+    pos[0]=0;
+    for(int i=1;i<n;i++)
+        pos[i] = pos[i-1] + cnt[i-1];
+ 
+    for(auto x:p) {
+        p_new[pos[c[x]]] = x;
+        pos[c[x]]++;
+    }
+    p = p_new;
+}
+
+vector<int> getSuffixPosition(string &s)
+{
+    s += "$";
+    int n=s.length();
+    vector<int>pos(n),c(n);
+    vector<pair<char,int > > a(n);
+ 
+    for(int i=0;i<n;i++){
+        a[i] = {s[i], i};
+    }
+    sort(a.begin(),a.end());
+ 
+    for(int i=0;i<n;i++){
+        pos[i] = a[i].second;
+    }
+    c[pos[0]] = 0;
+    for(int i=1;i<n;i++){
+        if(a[i].first == a[i-1].first){
+            c[pos[i]] = c[pos[i-1]];
+        }
+        else{
+            c[pos[i]] = c[pos[i-1]]+1;
+        }
+    }
+ 
+    int k = 0;
+    vector<int> c_new(n);
+    while((1ll<<k) < n)
+    {
+        for(int i=0;i<n;i++){
+            pos[i] = (pos[i] - (1ll<<k) + n)%n;
+        }
+ 
+        countSort(pos,c);
+ 
+        c_new[pos[0]] = 0;
+        for(int i=1;i<n;i++){
+            pair<int,int> prev = {c[pos[i-1]], c[(pos[i-1]+(1ll<<k))%n]};
+            pair<int,int> now = {c[pos[i]], c[(pos[i]+(1ll<<k))%n]};
+            if(prev == now){
+                c_new[pos[i]] = c_new[pos[i-1]];
+            }
+            else{
+                c_new[pos[i]] = c_new[pos[i-1]] + 1;
+            }
+        }
+        c = c_new;
+        k++;
+    }
+    return pos;
+}
+
+vector<int> getLCP(string &s, vector<int>&p){
+    int n = s.length();
+
+    vector<int>c(n,0);
+    for(int i=0;i<n;i++)    c[p[i]] = i;
+    
+    vector<int>lcp(n-1,0);
+    int k = 0;
+    
+    for(int i=0;i<n-1;i++){
+        int x = c[i]-1;
+        int j = p[x];
+        while(s[i+k] == s[j+k])    k++;
+        lcp[x] = k;
+        k = max(k-1, 0);
+    }
+    
+    return lcp;
+}
 ```
