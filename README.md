@@ -502,8 +502,8 @@ struct NextPrev{
 		nextgreater = vector<int>(n, n);
 		stack<int> st;
 		for(int i=n-1;i>=0;i--){
-		    while(!st.empty() && a[st.top()]<=a[i])   st.pop();
-		    nextgreater[i]=(st.empty()?n:st.top());
+		    while(!st.empty() && a[st.top()] <= a[i])   st.pop();
+		    if(!st.empty()) nextgreater[i] = st.top();
 		    st.push(i);
 		}
 		return;
@@ -511,24 +511,20 @@ struct NextPrev{
 	void calcNextSmaller(){
 		nextsmaller = vector<int>(n, n);
 		stack<int> st;
-		for(int i = 0 ; i < n ; i++){
-			while(!st.empty() && a[st.top()] > a[i]){
-				nextsmaller[st.top()] = i;
-				st.pop();
-			}
-			st.push(i);
+		for(int i=n-1;i>=0;i--){
+		    while(!st.empty() && a[i] <= a[st.top()])	st.pop();
+		    if(!st.empty()) nextsmaller[i] = st.top();
+		    st.push(i);
 		}
 		return;
 	}
 	void calcPrevSmaller(){
 		prevsmaller = vector<int> (n, -1);
 		stack<int> st;
-		for(int i = n - 1 ; i >= 0 ; i--){
-			while(!st.empty() && a[i] < a[st.top()]){
-				prevsmaller[st.top()] = i;
-				st.pop();
-			}
-			st.push(i);
+		for(int i=0;i<n;i++){
+		    while(!st.empty() && a[i] <= a[st.top()])	st.pop();
+		    if(!st.empty())   prevsmaller[i] = st.top();
+		    st.push(i);
 		}
 		return;
 	}
