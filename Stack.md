@@ -7,6 +7,7 @@
   - [Postfix  to Infix](#Postfix_To_Infix)
   - [Prefix  to postfix](#Prefix_To_Postfix)
   - [Prefix  to Infix](#Prefix_To_Infix)
+  - [Stack using 2 Queue](#Stack_using_2_Queue)
 
 ## Infix_To_Postfix
 ```C++
@@ -163,4 +164,55 @@ string preToInfix(string s) {
     return st.top();
 }
 ```
+## Stack_using_2_Queue
+```C++
+// Push -> O(1)  and Pop and Top -> O(n)
+class MyStack {
+    queue<int>q1,q2;
+public:
+    MyStack() {
+        while(!q1.empty())  q1.pop();
+        while(!q2.empty())  q2.pop();
+    }
+    
+    void push(int x) {
+        q1.push(x);
+    }
+    
+    int pop() {
+        int s = q1.size();
+        for(int i=0;i<s-1;i++){
+            q2.push(q1.front());
+            q1.pop();
+        }
+        int val = q1.front();
+        q1.pop();
+        while(!q2.empty()){
+            q1.push(q2.front());
+            q2.pop();
+        }
+        return val;
+    }
+    
+    int top() {
+        int s = q1.size();
+        for(int i=0;i<s-1;i++){
+            q2.push(q1.front());
+            q1.pop();
+        }
+        int val = q1.front();
+        q2.push(val);
+        q1.pop();
+        while(!q2.empty()){
+            q1.push(q2.front());
+            q2.pop();
+        }
+        return val;
+    }
+    
+    bool empty() {
+        return (q1.size()==0);
+    }
+};
 
+```
