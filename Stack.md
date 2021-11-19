@@ -9,6 +9,7 @@
   - [Prefix  to Infix](#Prefix_To_Infix)
   - [Stack using 2 Queue](#Stack_using_2_Queue)
   - [Stack using 1 Queue](#Stack_using_1_Queue)
+  - [Queue using 2 Stack](#Queue_using_2_Stack)
 
 ## Infix_To_Postfix
 ```C++
@@ -293,4 +294,43 @@ public:
         return (q1.size()==0);
     }
 };
+```
+
+## Queue_using_2_Stack
+```C++
+class MyQueue {
+    stack<int>s1,s2;
+public:
+    MyQueue() {
+        while(!s1.empty())  s1.pop();
+        while(!s2.empty())  s2.pop();
+    }
+    
+    void push(int x) {
+        while(!s1.empty()){
+            s2.push(s1.top());
+            s1.pop();
+        }
+        s1.push(x);
+        while(!s2.empty()){
+            s1.push(s2.top());
+            s2.pop();
+        }
+    }
+    
+    int pop() {
+        int val = s1.top();
+        s1.pop();
+        return val;
+    }
+    
+    int peek() {
+        return s1.top();
+    }
+    
+    bool empty() {
+        return (s1.size()==0);
+    }
+};
+
 ```
