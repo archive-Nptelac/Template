@@ -181,12 +181,14 @@ public:
     
     int pop() {
         int s = q1.size();
+	// first remove size-1 element the remaining element will be the top element of stack
         for(int i=0;i<s-1;i++){
             q2.push(q1.front());
             q1.pop();
         }
         int val = q1.front();
         q1.pop();
+	// At this point q1 will be empty, now vacant q2 (all element from q2 to q1)
         while(!q2.empty()){
             q1.push(q2.front());
             q2.pop();
@@ -214,5 +216,45 @@ public:
         return (q1.size()==0);
     }
 };
+
+
+// Push -> O(n)  and Pop and Top -> O(1)
+class MyStack {
+    queue<int>q1,q2;
+public:
+    MyStack() {
+        while(!q1.empty())  q1.pop();
+        while(!q2.empty())  q2.pop();
+    }
+    
+    void push(int x) {
+        // first vacant q1
+        while(!q1.empty()){
+            q2.push(q1.front());
+            q1.pop();
+        }
+        // push x to q1 and the all element from q2 to q1
+        q1.push(x);
+        while(!q2.empty()){
+            q1.push(q2.front());
+            q2.pop();
+        }
+    }
+    
+    int pop() {
+        int val = q1.front();
+        q1.pop();
+        return val;
+    }
+    
+    int top() {
+        return q1.front();
+    }
+    
+    bool empty() {
+        return (q1.size()==0);
+    }
+};
+
 
 ```
