@@ -25,6 +25,7 @@
   - [Morris Traversal](#InMorris)
     - [Inorder using Morris](#InMorris)
     - [Preorder using Morris](#PreMorris)
+    - [Binary Tree to DLL](#binaryTreetoDLL)
 - [Binary Search Tree](#BinarySearchTree)
 
 
@@ -721,7 +722,34 @@
     }
 
 ```
+## binaryTreetoDLL
+```c++
+    Node *prev,*head;
+    void inorder(Node *root){
+        if(root==NULL)  return;
+        inorder(root->left);
+        if(head==NULL){
+            head = root;
+            prev = root;
+        }
+        else{
+            root->left = prev;
+            prev->right = root;
+            prev = root;
+        }
+        // cout << root->data << " ";
+        inorder(root->right);
+    }
+    Node * bToDLL(Node *root)
+    {
+        // your code here
+        prev = NULL;
+        head = NULL;
+        inorder(root);
+        return head;
+    }
 
+```
 
 ## BinarySearchTree
 ```C++
